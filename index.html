@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080c14" />
+    <meta
+      name="description"
+      content="VitaPulse health, activity, sleep, nutrition, and connected-device dashboard."
+    />
+    <title>VitaPulse — Health Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <svg class="icon-sprite" aria-hidden="true">
+      <symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></symbol>
+      <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l2.2-6 4.2 12 2.2-6H21" /></symbol>
+      <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15.6A8.5 8.5 0 0 1 8.4 4 8.5 8.5 0 1 0 20 15.6Z" /></symbol>
+      <symbol id="i-nutrition" viewBox="0 0 24 24"><path d="M12 21c5-3 8-7 8-12-5 0-9 3-10 8M4 4c5 0 8 3 8 8v9" /></symbol>
+      <symbol id="i-watch" viewBox="0 0 24 24"><path d="M9 2h6l1 4H8l1-4Zm-1 16h8l-1 4H9l-1-4Z" /><rect x="6" y="6" width="12" height="12" rx="3" /></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 5.7a5.5 5.5 0 0 0-7.8 0L12 6.8l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 22l8.8-8.5a5.5 5.5 0 0 0 0-7.8Z" /></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" /></symbol>
+    </svg>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <button class="brand" type="button" data-page-target="dashboard" aria-label="Go to Dashboard">
+            <span class="brand-mark">V</span>
+            <span>VitaPulse</span>
+          </button>
+          <nav class="desktop-nav" aria-label="Primary navigation">
+            <button class="nav-link active" type="button" data-page-target="dashboard">Dashboard</button>
+            <button class="nav-link" type="button" data-page-target="activity">Activity</button>
+            <button class="nav-link" type="button" data-page-target="sleep">Sleep</button>
+            <button class="nav-link" type="button" data-page-target="nutrition">Nutrition</button>
+            <button class="nav-link" type="button" data-page-target="devices">Devices</button>
+          </nav>
+          <div class="profile-actions">
+            <button class="icon-button" type="button" aria-label="Notifications">
+              <svg><use href="#i-bell" /></svg><span class="notification-dot"></span>
+            </button>
+            <img
+              class="avatar"
+              src="https://images.unsplash.com/photo-1623854767648-e7bb8009f0db?auto=format&fit=crop&w=160&q=88"
+              alt="Dr. Amara Chen"
+            />
+          </div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow" id="page-eyebrow">Overview · Sep 6, 2026</p>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+          <div class="live-status"><span></span> Live · Synced 2 min ago</div>
+        </div>
+
+        <section class="page active" id="dashboard" aria-labelledby="page-title">
+          <div class="hero-grid">
+            <article class="glass hero-copy">
+              <div class="ambient ambient-teal"></div>
+              <div class="live-label"><span></span> Live monitoring</div>
+              <h2>Good morning,<br /><span>Dr. Amara Chen</span></h2>
+              <p>Your vitals are looking excellent today. Keep your momentum going.</p>
+              <div class="hero-stats">
+                <div><small>Health score</small><strong class="teal">94<em>/100</em></strong></div>
+                <div><small>Recovery</small><strong class="violet">87%</strong></div>
+                <div><small>Readiness</small><strong class="amber">High</strong></div>
+              </div>
+            </article>
+            <article class="glass device-hero">
+              <div class="card-title-row">
+                <div><p class="eyebrow">Connected device</p><h3>VitaBand Pro 4</h3></div>
+                <span class="status-pill"><i></i> Synced</span>
+              </div>
+              <img
+                src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=720&q=88"
+                alt="Black smartwatch"
+              />
+              <div class="battery-row"><span>Battery</span><div class="progress"><i style="width: 78%"></i></div><b>78%</b></div>
+            </article>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric-card glass"><div class="metric-top"><span>Heart rate</span><svg><use href="#i-heart" /></svg></div><strong class="rose">72 <small>bpm</small></strong><p>Resting · Normal range</p><div class="progress rose-fill"><i style="width: 65%"></i></div></article>
+            <article class="metric-card glass"><div class="metric-top"><span>Blood oxygen</span><b>O₂</b></div><strong class="teal">98 <small>%</small></strong><p>Oxygen saturation</p><div class="progress"><i style="width: 98%"></i></div></article>
+            <article class="metric-card glass"><div class="metric-top"><span>Steps</span><b>ST</b></div><strong class="violet">9,412 <small>steps</small></strong><p>74% of daily goal</p><div class="progress violet-fill"><i style="width: 74%"></i></div></article>
+            <article class="metric-card glass"><div class="metric-top"><span>Sleep</span><svg><use href="#i-moon" /></svg></div><strong class="amber">7.4 <small>hrs</small></strong><p>REM: 1h 42m</p><div class="progress amber-fill"><i style="width: 82%"></i></div></article>
+          </div>
+
+          <div class="content-grid two-one">
+            <article class="glass chart-card">
+              <div class="card-title-row">
+                <div><p class="eyebrow">Biometrics</p><h3>Today's overview</h3></div>
+                <div class="segmented" role="tablist">
+                  <button class="active" type="button" data-dashboard-chart="heart">Heart rate</button>
+                  <button type="button" data-dashboard-chart="steps">Steps</button>
+                  <button type="button" data-dashboard-chart="sleep">Sleep</button>
+                </div>
+              </div>
+              <div class="chart-wrap"><canvas id="dashboardChart"></canvas></div>
+            </article>
+            <article class="glass">
+              <p class="eyebrow">Activity rings</p><h3>Daily goals</h3>
+              <div class="ring-list">
+                <div class="ring-row"><div class="ring rose-ring" style="--value:74"><span>74%</span></div><div><strong>Move</strong><p>740 / 1,000 kcal</p></div></div>
+                <div class="ring-row"><div class="ring teal-ring" style="--value:58"><span>58%</span></div><div><strong>Exercise</strong><p>35 / 60 min</p></div></div>
+                <div class="ring-row"><div class="ring violet-ring" style="--value:91"><span>91%</span></div><div><strong>Stand</strong><p>11 / 12 hrs</p></div></div>
+              </div>
+              <div class="insight"><span>AI insight</span><p>You're on track for a personal-best week. Two more active hours will close every ring.</p></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" id="activity" aria-labelledby="page-title">
+          <div class="metric-grid">
+            <article class="metric-card glass"><span>Active minutes</span><strong class="teal">127 <small>min</small></strong><p>Goal: 60 min</p></article>
+            <article class="metric-card glass"><span>Calories burned</span><strong class="rose">680 <small>kcal</small></strong><p>Active energy</p></article>
+            <article class="metric-card glass"><span>Distance</span><strong class="violet">23.6 <small>km</small></strong><p>This week</p></article>
+            <article class="metric-card glass"><span>Workouts</span><strong class="amber">5 <small>sessions</small></strong><p>Three-week streak</p></article>
+          </div>
+          <div class="content-grid two-one">
+            <article class="glass chart-card"><p class="eyebrow">Energy</p><h3>Weekly calories</h3><div class="chart-wrap"><canvas id="activityChart"></canvas></div></article>
+            <article class="glass"><p class="eyebrow">Training</p><h3>Heart-rate zones</h3><div class="zone-list">
+              <div><p><span>Rest · &lt;90</span><b>620m</b></p><div class="progress muted-fill"><i style="width: 82%"></i></div></div>
+              <div><p><span>Fat burn · 90–119</span><b class="amber">285m</b></p><div class="progress amber-fill"><i style="width: 55%"></i></div></div>
+              <div><p><span>Cardio · 120–149</span><b class="rose">198m</b></p><div class="progress rose-fill"><i style="width: 40%"></i></div></div>
+              <div><p><span>Peak · 150+</span><b class="violet">72m</b></p><div class="progress violet-fill"><i style="width: 18%"></i></div></div>
+            </div><div class="insight violet-insight"><span>Training load</span><strong>Moderate</strong><p>Recovery recommended in 18 hours.</p></div></article>
+          </div>
+          <div class="content-grid workout-grid">
+            <article class="glass"><p class="eyebrow">History</p><h3>Workout log</h3><div class="select-list" id="workoutList"></div></article>
+            <article class="glass detail-panel" id="workoutDetail"></article>
+          </div>
+        </section>
+
+        <section class="page" id="sleep" aria-labelledby="page-title">
+          <div class="metric-grid">
+            <article class="metric-card glass"><span>Sleep score</span><strong class="violet">82 <small>/100</small></strong><p>Good · Above average</p></article>
+            <article class="metric-card glass"><span>Total sleep</span><strong class="teal">7.4 <small>hrs</small></strong><p>Goal: 8 hours</p></article>
+            <article class="metric-card glass"><span>Deep sleep</span><strong class="rose">1h 18m</strong><p>17% of total</p></article>
+            <article class="metric-card glass"><span>REM sleep</span><strong class="amber">1h 42m</strong><p>23% of total</p></article>
+          </div>
+          <div class="content-grid two-one">
+            <article class="glass chart-card"><p class="eyebrow">Trend</p><h3>Weekly sleep composition</h3><div class="chart-wrap"><canvas id="sleepChart"></canvas></div></article>
+            <article class="glass sleep-summary"><p class="eyebrow">Last night</p><h3>Stage breakdown</h3><div class="sleep-score-ring"><strong>7h 24m</strong><span>total sleep</span></div><ul><li><i class="deep"></i>Deep <b>17%</b></li><li><i class="rem"></i>REM <b>23%</b></li><li><i class="light"></i>Light <b>52%</b></li><li><i class="awake"></i>Awake <b>8%</b></li></ul></article>
+          </div>
+          <div class="content-grid two-one">
+            <article class="glass chart-card"><p class="eyebrow">Overnight HRV</p><h3>Heart-rate variability</h3><div class="chart-wrap small"><canvas id="hrvChart"></canvas></div></article>
+            <article class="glass"><p class="eyebrow">Analysis</p><h3>Sleep factors</h3><div class="factor-list">
+              <div><p><span>Bedtime consistency</span><b>90</b></p><div class="progress"><i style="width:90%"></i></div></div>
+              <div><p><span>Screen time</span><b class="amber">55</b></p><div class="progress amber-fill"><i style="width:55%"></i></div></div>
+              <div><p><span>Room temperature</span><b>85</b></p><div class="progress"><i style="width:85%"></i></div></div>
+              <div><p><span>Caffeine timing</span><b class="amber">72</b></p><div class="progress amber-fill"><i style="width:72%"></i></div></div>
+            </div></article>
+          </div>
+        </section>
+
+        <section class="page" id="nutrition" aria-labelledby="page-title">
+          <div class="metric-grid">
+            <article class="metric-card glass"><span>Calories</span><strong class="amber">1,820 <small>kcal</small></strong><p>Goal: 2,200 kcal</p></article>
+            <article class="metric-card glass"><span>Protein</span><strong class="rose">142 <small>g</small></strong><p>79% of target</p></article>
+            <article class="metric-card glass"><span>Hydration</span><strong class="teal">1.8 <small>L</small></strong><p>Goal: 2.5 L</p></article>
+            <article class="metric-card glass"><span>Meals logged</span><strong class="violet" id="mealCount">4</strong><p>Today</p></article>
+          </div>
+          <div class="content-grid one-two">
+            <article class="glass"><p class="eyebrow">Today</p><h3>Macronutrients</h3><div class="macro-list">
+              <div><p><span>Protein</span><b class="rose">142 / 180g</b></p><div class="progress rose-fill"><i style="width:79%"></i></div></div>
+              <div><p><span>Carbohydrates</span><b class="amber">198 / 250g</b></p><div class="progress amber-fill"><i style="width:79%"></i></div></div>
+              <div><p><span>Fat</span><b class="teal">68 / 80g</b></p><div class="progress"><i style="width:85%"></i></div></div>
+              <div><p><span>Fiber</span><b class="violet">28 / 35g</b></p><div class="progress violet-fill"><i style="width:80%"></i></div></div>
+            </div><div class="calorie-goal"><div class="ring amber-ring" style="--value:83"><span>83%</span></div><div><p>Daily calorie goal</p><strong>1,820 / 2,200</strong><small>380 remaining</small></div></div></article>
+            <article class="glass"><div class="card-title-row"><div><p class="eyebrow">Intake log</p><h3>Meals today</h3></div><button class="primary-button" type="button" id="openMealModal"><svg><use href="#i-plus" /></svg> Log food</button></div><div class="meal-list" id="mealList"></div></article>
+          </div>
+          <div class="content-grid two-one">
+            <article class="glass chart-card"><p class="eyebrow">Trend</p><h3>Weekly calorie intake</h3><div class="chart-wrap small"><canvas id="nutritionChart"></canvas></div></article>
+            <article class="glass hydration"><p class="eyebrow">Hydration</p><h3>Water intake</h3><div class="ring teal-ring hydration-ring" style="--value:72"><span>1.8L<small>of 2.5L</small></span></div><button type="button" id="addWater">Add 250 ml</button></article>
+          </div>
+        </section>
+
+        <section class="page" id="devices" aria-labelledby="page-title">
+          <div class="metric-grid">
+            <article class="metric-card glass"><span>Connected</span><strong class="teal">2</strong><p>of 3 devices online</p></article>
+            <article class="metric-card glass"><span>Data points</span><strong class="violet">14.2k</strong><p>Collected today</p></article>
+            <article class="metric-card glass"><span>Sync rate</span><strong class="amber">99.8 <small>%</small></strong><p>30-day average</p></article>
+            <article class="metric-card glass"><span>Storage used</span><strong class="rose">2.4 <small>GB</small></strong><p>of 16 GB</p></article>
+          </div>
+          <div class="device-layout">
+            <article class="glass"><p class="eyebrow">Paired hardware</p><h3>My devices</h3><div class="select-list" id="deviceList"></div><button class="secondary-button full" type="button">Pair new device</button></article>
+            <article class="glass detail-panel device-detail" id="deviceDetail"></article>
+            <aside class="device-aside">
+              <article class="glass"><p class="eyebrow">Hardware</p><h3>Active sensors</h3><div class="sensor-grid" id="sensorGrid"></div></article>
+              <article class="glass"><p class="eyebrow">Management</p><h3>Device actions</h3><div class="action-grid"><button type="button" id="syncDevice">Sync now</button><button type="button">Update firmware</button><button type="button">Calibrate</button><button type="button">Find device</button></div></article>
+            </aside>
+          </div>
+        </section>
+      </main>
+
+      <footer><span><i></i> All systems nominal</span><span>VitaPulse OS v4.2.1</span></footer>
+
+      <nav class="mobile-nav" aria-label="Mobile navigation">
+        <button class="active" type="button" data-page-target="dashboard"><svg><use href="#i-grid" /></svg><span>Dashboard</span></button>
+        <button type="button" data-page-target="activity"><svg><use href="#i-activity" /></svg><span>Activity</span></button>
+        <button type="button" data-page-target="sleep"><svg><use href="#i-moon" /></svg><span>Sleep</span></button>
+        <button type="button" data-page-target="nutrition"><svg><use href="#i-nutrition" /></svg><span>Nutrition</span></button>
+        <button type="button" data-page-target="devices"><svg><use href="#i-watch" /></svg><span>Devices</span></button>
+      </nav>
+    </div>
+
+    <dialog id="mealModal">
+      <form method="dialog" id="mealForm">
+        <div class="card-title-row"><div><p class="eyebrow">Nutrition</p><h2>Log a meal</h2></div><button class="icon-button" value="cancel" aria-label="Close"><svg><use href="#i-close" /></svg></button></div>
+        <label>Meal name<input name="name" required placeholder="e.g. Greek yogurt bowl" /></label>
+        <div class="form-row"><label>Calories<input name="calories" required type="number" min="1" placeholder="320" /></label><label>Meal type<select name="type"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select></label></div>
+        <button class="primary-button full" value="default" type="submit">Add to today's log</button>
+      </form>
+    </dialog>
+  </body>
+</html>
